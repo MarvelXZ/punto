@@ -1,0 +1,46 @@
+{% extends 'vendors/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2>{% trans "Invoice Details" %}</h2>
+
+    <p><strong>{% trans "Invoice Number" %}:</strong> {{ invoice.invoice_number }}</p>
+    <p><strong>{% trans "Supplier" %}:</strong> {{ invoice.supplier.name }}</p>
+    <p><strong>{% trans "Date" %}:</strong> {{ invoice.date }}</p>
+    <p><strong>{% trans "Total Amount" %}:</strong> {{ invoice.total_amount }} EUR</p>
+
+    <h3>{% trans "Received Items" %}</h3>
+    
+    <!-- Tabela za primljene stavke -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">{% trans "Vendor Code" %}</th>
+          <th scope="col">{% trans "Product Name" %}</th>
+          <th scope="col">{% trans "Quantity" %}</th>
+          <th scope="col">{% trans "Unit Price (EUR)" %}</th>
+          <th scope="col">{% trans "Total Price (EUR)" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in invoice.received_items.all %}
+          <tr>
+            <td>{{ item.vendor_code }}</td>
+            <td>{{ item.product_name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.unit_price }}</td>
+            <td>{{ item.total_price }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="5" class="text-center">{% trans "No items received." %}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <a href="{% url 'vendors:invoice_list' %}" class="btn btn-primary">{% trans "Back to Invoices" %}</a>
+  </div>
+{% endblock %}

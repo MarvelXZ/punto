@@ -1,0 +1,11 @@
+{% extends 'vendors/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+  
+<button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'vendors:invoice_add' %}'">Add New Invoice</button>
+<button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'vendors:supplier_add' %}'">Add New Supplier</button>
+
+
+{% endblock %}

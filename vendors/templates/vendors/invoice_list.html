@@ -1,0 +1,14 @@
+{% extends 'vendors/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+  <h2>{% trans "Invoice List" %}</h2>
+  <ul>
+    {% for invoice in invoices %}
+      <li>{{ invoice.invoice_number }} - {{ invoice.supplier.name }} - {{ invoice.total_amount }} EUR</li>
+    {% empty %}
+      <li>{% trans "No invoices available." %}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
